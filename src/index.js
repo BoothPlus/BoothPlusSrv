@@ -3,11 +3,13 @@ import './config/dbConnection.js'
 import Auth from './config/auth.js'
 import postController from './api/post.controller.js'
 import TokenHelper from './helper/token-helper.js'
+import cors from 'cors'
 
 const app = express()
 const port = process.env.PORT || 3000
 
 app.use(express.json())
+app.use(cors())
 
 app.use(async (req, res, next) => {
   const token = await TokenHelper(req)
