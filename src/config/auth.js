@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import User from '../models/user.js'
+import UserService from '../services/user.service.js'
 
 const Auth = {}
 
@@ -19,7 +19,7 @@ Auth.TokenValidationCheck = async (token) => {
       profileImage: picture
     }
 
-    await User.AddUser(userEntity)
+    await UserService.AddUser(userEntity)
   }
 
   return result
