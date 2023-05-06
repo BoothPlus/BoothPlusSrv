@@ -1,25 +1,16 @@
-import oracleDB from 'oracledb'
+import mysql from 'mysql2/promise'
 
 class DbConnection {
   constructor () {
     const dbInfo = {
-      user: process.env.ORACLEUSER,
-      password: process.env.ORACLEPASSWORD,
-      connectString: process.env.CONNECTIONSTRING,
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DATABASE
     }
 
-    oracleDB.autoCommit = true
-    oracleDB.outFormat = oracleDB.OBJECT
-    // oracleDB.initOracleClient({ libDir: '../../instantclient_21_10' })
-
-    // oracleDB.getConnection(dbInfo, (error, connection) => {
-    //   if (error) throw error
-    //
-    //   console.log('Oracle DB Connected')
-    //   this.Connection = connection
-    // })
-
-    this.Connection = oracleDB.getConnection(dbInfo)
+    this.Connection = mysql.createConnection(dbInfo)
   }
 }
 
