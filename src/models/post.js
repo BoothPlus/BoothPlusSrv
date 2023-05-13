@@ -38,8 +38,9 @@ POST.AddPost = async (post) => {
   const now = dayjs().format('YYYY-MM-DD HH:mm:ss')
 
   const sql = 'INSERT INTO POSTS (ITEM_ID, COMMENT, RATING, CREATED_DATE, CREATOR, MODIFIED_DATE, MODIFIER) VALUE (?, ?, ?, ?, ?, ?, ?)'
+  const [results] = await connection.execute(sql, [itemId, comment, rating, now, id, now, id])
 
-  await connection.execute(sql, [itemId, comment, rating, now, id, now, id])
+  return results
 }
 
 export default POST
