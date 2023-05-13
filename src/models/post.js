@@ -5,6 +5,7 @@ dayjs.locale('kr')
 const connection = await dbConnection.Connection
 const POST = {}
 
+
 POST.GetCount = async (options) => {
   const sql = `SELECT COUNT(1) AS COUNT FROM POSTS WHERE ITEM_ID = ?`
   const [rows, fields] = await connection.execute(sql, [options.itemId])
