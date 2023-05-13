@@ -12,4 +12,8 @@ UserService.AddUser = async (userEntity) => {
   if (rows[0].count === 0) await User.AddUser(userEntity)
 }
 
+UserService.GetUserByUserId = async (uuid) => {
+  return await User.GetUserByUserId(uuid)
+}
+
 export default UserService
