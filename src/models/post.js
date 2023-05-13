@@ -16,11 +16,11 @@ POST.GetPost = async (options) => {
   const page = parseInt(options.page)
   const pageSize = parseInt(options.pageSize)
 
-  const sql = `SELECT p.COMMENT,
-                      p.RATING,
-                      p.CREATED_DATE,
-                      u.NAME,
-                      u.PROFILE_IMAGE
+  const sql = `SELECT p.COMMENT AS comment,
+                      p.RATING AS rating,
+                      p.CREATED_DATE AS createdDate,
+                      u.NAME AS name,
+                      u.PROFILE_IMAGE AS profileImage
                FROM POSTS p
                JOIN USERS u ON p.CREATOR = u.USER_ID
                WHERE ITEM_ID = ?
