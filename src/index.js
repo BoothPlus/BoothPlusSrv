@@ -1,6 +1,6 @@
 import express from 'express'
 import './config/dbConnection.js'
-import Auth from './config/auth.js'
+import AuthService from './services/auth.service.js'
 import postController from './api/post.controller.js'
 import TokenHelper from './helper/token-helper.js'
 import cors from 'cors'
@@ -18,13 +18,6 @@ app.get('/healthz', (req, res) => {
 
 app.use(express.json())
 app.use(cors())
-
-app.use(async (req, res, next) => {
-  const token = await TokenHelper(req)
-  if (await Auth.TokenValidationCheck(token)) next()
-  else res.status(401).send('tokenExpired or Error Occurred')
-})
-
 app.use('/post', postController)
 
 app.listen(port, () => {
