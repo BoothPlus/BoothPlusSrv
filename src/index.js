@@ -1,5 +1,4 @@
 import express from 'express'
-import './config/dbConnection.js'
 import postController from './api/post.controller.js'
 import cors from 'cors'
 

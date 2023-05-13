@@ -2,7 +2,8 @@ import dbConnection from '../config/dbConnection.js'
 import dayjs from 'dayjs'
 
 dayjs.locale('kr')
-const connection = await dbConnection
+
+const connection = await dbConnection()
 const POST = {}
 
 POST.GetCount = async (options) => {

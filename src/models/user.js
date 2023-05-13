@@ -1,12 +1,12 @@
 import dbConnection from '../config/dbConnection.js'
 
-const connection = await dbConnection
+const connection = await dbConnection()
 const User = {}
 
 User.IsExists = async (userId) => {
   const sql = 'SELECT COUNT(1) AS COUNT FROM USERS WHERE USER_ID = ?'
 
-  return connection.execute(sql, [userId])
+  return await connection.execute(sql, [userId])
 }
 
 User.AddUser = async (userEntity) => {
