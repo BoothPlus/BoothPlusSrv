@@ -10,7 +10,8 @@ PostService.GetAllPost = async (options) => {
 }
 
 PostService.AddPost = async (post) => {
-  await Post.AddPost(post)
+  const insertedId = await Post.AddPost(post)
+  return Post.GetPostById(insertedId)
 }
 
 export default PostService

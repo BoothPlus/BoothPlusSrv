@@ -17,8 +17,8 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', authGuard, async (req, res) => {
   const userInfo = await AuthService.GetUserInfo(await TokenHelper(req))
-  await PostService.AddPost(Object.assign(req.body, userInfo))
-  res.send('success')
+  const result = await PostService.AddPost(Object.assign(req.body, userInfo))
+  res.send(result)
 })
 
 export default router
