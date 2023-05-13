@@ -1,16 +1,16 @@
 import fetch from 'node-fetch'
-import UserService from '../services/user.service.js'
+import UserService from './user.service.js'
 
-const Auth = {}
+const AuthService = {}
 
-Auth.TokenValidationCheck = async (token) => {
+AuthService.TokenValidationCheck = async (token) => {
   const response = await fetch(`https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${token}`)
   const data = await response.json()
 
   const result = data['issued_to']?.startsWith(process.env.CHROME_EXTENSION_CLIENT_ID)
 
   if (result) {
-    const { id, name, email, picture } = await Auth.GetUserInfo(token)
+    const { id, name, email, picture } = await AuthService.GetUserInfo(token)
 
     const userEntity = {
       userId: id,
@@ -25,7 +25,7 @@ Auth.TokenValidationCheck = async (token) => {
   return result
 }
 
-Auth.GetUserInfo = async (token) => {
+AuthService.GetUserInfo = async (token) => {
   const response = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
     method: 'GET',
     headers: {
@@ -38,4 +38,4 @@ Auth.GetUserInfo = async (token) => {
   return await response.json()
 }
 
-export default Auth
+export default AuthService
