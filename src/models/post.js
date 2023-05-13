@@ -16,7 +16,8 @@ POST.GetPost = async (options) => {
   const page = parseInt(options.page)
   const pageSize = parseInt(options.pageSize)
 
-  const sql = `SELECT p.COMMENT AS comment,
+  const sql = `SELECT p.id AS id
+                      p.COMMENT AS comment,
                       p.RATING AS rating,
                       p.CREATED_DATE AS createdDate,
                       u.NAME AS name,
