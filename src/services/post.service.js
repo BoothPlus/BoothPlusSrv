@@ -4,7 +4,7 @@ const PostService = {}
 
 PostService.GetAllPost = async (options) => {
   return {
-    list: await Post.GetPost(options),
+    list: await Post.GetPaginatePost(options),
     count: await Post.GetCount(options)
   }
 }
