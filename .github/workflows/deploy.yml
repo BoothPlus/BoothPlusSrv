@@ -1,0 +1,50 @@
+name: Deploy to cloudtype
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Connect deploy key
+        uses: cloudtype-github-actions/connect@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          ghtoken: ${{ secrets.GHP_TOKEN }}
+      - name: Deploy
+        uses: cloudtype-github-actions/deploy@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          project: ribe/boothplussrv
+          stage: main
+          yaml: |
+            name: boothplussrv
+            app: node@18
+            options:
+              env:
+                - name: NODE_ENV
+                  value: production
+                - name: CHROME_EXTENSION_CLIENT_ID
+                  secret: CHROME_EXTENSION_CLIENT_ID
+                - name: DB_HOST
+                  secret: DB_HOST
+                - name: DB_PORT
+                  secret: DB_PORT
+                - name: DB_USER
+                  secret: DB_USER
+                - name: DB_PASSWORD
+                  secret: mariadb-root-password
+                - name: DATABASE
+                  secret: DATABASE
+              ports: 3000
+              install: yarn
+              start: yarn start
+              healthz: /healthz
+            context:
+              git:
+                url: git@github.com:${{ github.repository }}.git
+                ref: ${{ github.ref }}
+              preset: node
