@@ -23,11 +23,12 @@ POST.GetPaginatePost = async (options) => {
     const pageSize = parseInt(options.pageSize)
 
     const sql = `SELECT p.id AS id,
-                      p.COMMENT AS comment,
-                      p.RATING AS rating,
-                      p.CREATED_DATE AS createdDate,
-                      u.NAME AS name,
-                      u.PROFILE_IMAGE AS profileImage
+                        p.COMMENT AS comment,
+                        p.RATING AS rating,
+                        p.CREATOR AS creator,
+                        p.CREATED_DATE AS createdDate,
+                        u.NAME AS name,
+                        u.PROFILE_IMAGE AS profileImage
                FROM POSTS p
                JOIN USERS u ON p.CREATOR = u.USER_ID
                WHERE ITEM_ID = ?
@@ -44,11 +45,12 @@ POST.GetPaginatePost = async (options) => {
 POST.GetPostById = async (id) => {
   try {
     const sql = `SELECT p.id AS id,
-                            p.COMMENT AS comment,
-                            p.RATING AS rating,
-                            p.CREATED_DATE AS createdDate,
-                            u.NAME AS name,
-                            u.PROFILE_IMAGE AS profileImage
+                        p.COMMENT AS comment,
+                        p.RATING AS rating,
+                        p.CREATOR AS creator,
+                        p.CREATED_DATE AS createdDate,
+                        u.NAME AS name,
+                        u.PROFILE_IMAGE AS profileImage
                      FROM POSTS p
                      JOIN USERS u ON p.CREATOR = u.USER_ID
                      WHERE p.id = ?
@@ -72,6 +74,17 @@ POST.AddPost = async (post) => {
     return results.insertId
   } catch (e) {
     console.error(e.message)
+  }
+}
+
+POST.DeletePostById = async (postId) => {
+  try {
+    const sql = `DELETE FROM POSTS WHERE id = ?`
+    const [results] = await connection.execute(sql, [postId])
+
+    return results
+  } catch (e) {
+    console.error()
   }
 }
 

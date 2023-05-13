@@ -21,4 +21,14 @@ router.post('/', authGuard, async (req, res) => {
   res.send(result)
 })
 
+router.delete('/:id', authGuard, async (req, res) => {
+  const options = {
+    postId: req.params.id,
+    userId: await AuthService.GetUserInfo(await TokenHelper(req))
+  }
+
+  const result = await PostService.DeletePostById(options)
+  res.send(result)
+})
+
 export default router
