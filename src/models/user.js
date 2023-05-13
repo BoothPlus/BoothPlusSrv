@@ -1,6 +1,6 @@
 import dbConnection from '../config/dbConnection.js'
 
-const connection = await dbConnection.Connection
+const connection = await dbConnection
 const User = {}
 
 User.IsExists = async (userId) => {
