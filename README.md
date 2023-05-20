@@ -13,4 +13,6 @@ booth.pm 사이트에 리뷰가 없어서 상품을 구매할 때 리뷰를 보�
 GCP의 OAuth를 이용하여 인증 구현까지 한 프로젝트 입니다.
 
 # 적용 이미지
-[activeImage](/images/1.png)
+<p align="center">
+  <img src="/images/1.png" width="1000">
+</p>
